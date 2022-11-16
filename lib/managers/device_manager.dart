@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nfc_manager/nfc_manager.dart';
 import 'package:one_context/one_context.dart';
 import 'package:xcards_admin_app/context/auth.dart';
 import 'package:xcards_admin_app/services/nfc_service.dart';
@@ -32,7 +33,7 @@ class DeviceManager {
       String? token = await authProvider.getAccessToken();
       Device device = await ApiService.createDevice(token!, type);
 
-      await NfcService.writeMessage(Uri.parse('https://xcards.app/d/id?=${device.id}'));
+      await NfcService.writeMessage(Uri.parse('https://xcards.app/d?id=${device.id}'));
 
       OneContext().showSnackBar(
           builder: (_) => SnackBar(content: Text('Created device with id: ${device.id}, status: ${device.status}, type: ${device.type}'))
